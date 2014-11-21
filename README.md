@@ -1,4 +1,4 @@
-Email App
+Email Application
 =====
 
-Email application built using AngularJS and Node
+Email application built using AngularJS on Node
