@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Email application using Angular JS on Node</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -26,21 +26,28 @@
     <div class="container">
         <div class="header">
             <ul class="nav nav-pills pull-right">
-                <li class="active"><a ng-href="#">Home</a>
+                <li class="active"><a ng-href="#">Home</a> 
                 </li>
-                <li><a ng-href="#/about">About</a>
+                <li><a ng-href="#/about">About</a> 
                 </li>
-                <li><a ng-href="#/product">Product</a>
+                <li><a ng-href="#/product">Product</a> 
                 </li>
-                <li><a ng-href="#/news">News</a>
+                <li><a ng-href="#/news">News</a> 
                 </li>
-                <li><a ng-href="#/contact">Contact</a>
+                <li><a ng-href="#/contact">Contact</a> 
                 </li>
             </ul>
             <h3 class="text-muted">Email Application</h3>
         </div>
 
         <div ng-view=""></div>
+        
+        <div class="jumbotron">
+            <h4>{{pageTitle}}</h4>
+            <input type="text" ng-model="pageTitle">
+            <br>
+            <div>We'll create an inbox here!!</div>
+        </div>
 
         <div class="footer">
             <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
@@ -95,4 +102,5 @@
     <!-- endbuild -->
 
 </body>
+
 </html>
