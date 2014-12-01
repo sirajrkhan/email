@@ -8,4 +8,7 @@ angular.module("emailApp")
         return (viewLocation === $location.path());
     }
     
+    //coming up...
+    //
+    
 });
