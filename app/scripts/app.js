@@ -43,6 +43,14 @@ angular
         templateUrl: 'views/news.html',
         controller: 'NewsCtrl'
     })
+    .when('/inbox',{
+        templateUrl:'views/inbox.html',
+        controller:'InboxCtrl'
+    })
+    .when('/email',{
+        templateUrl:'views/email.html',
+        controller:'EmailCtrl'
+    })
       .otherwise({
         redirectTo: '/'
       });
