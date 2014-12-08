@@ -45,8 +45,7 @@
 
         <div ng-view=""></div>
         
-        <div class="jumbotron" ng-hide="true">
-            <h4>{{pageTitle}}</h4>
+        <div ng-controller="InboxCtrl">
             <input type="text" ng-model="pageTitle">
             <br>
             <div>We'll create an inbox here!!</div>
