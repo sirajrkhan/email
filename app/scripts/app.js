@@ -55,3 +55,8 @@ angular
         redirectTo: '/'
       });
   });
+
+angular.element(document).ready(function(){
+       console.log('doc ready saaarr..')
+   });
+   
