@@ -5,3 +5,4 @@ angular.module('emailApp')
         console.log ('Inbox Controller called.... saaaaar!!!');
         $scope.pageTitle = "Coming from Ctrlr Saar..";
     });
+
