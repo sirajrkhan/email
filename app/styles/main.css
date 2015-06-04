@@ -4,6 +4,11 @@ body {
   padding-bottom: 20px;
 }
 
+p::first-line {
+    color: #999966;
+    font-size:x-small;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -77,3 +82,4 @@ body {
     border-bottom: 0;
   }
 }
+
