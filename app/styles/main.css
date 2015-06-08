@@ -4,9 +4,9 @@ body {
   padding-bottom: 20px;
 }
 
-p::first-line {
-    color: #999966;
-    font-size:x-small;
+p::first-letter {
+    color: #db3d0d;
+    font-size:xx-large;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
