@@ -5,13 +5,10 @@ body {
 }
 
 p::first-letter {
-<<<<<<< HEAD
     color: #db3d0d;
     font-size:xx-large;
-=======
     color: #999966;
     font-size:x-large;
->>>>>>> fbe4e16d2bc3494c918d0bf79228862cd4425854
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
