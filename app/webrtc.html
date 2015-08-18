@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebRTC Proof of Concept</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+    <script>
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+      var peer = new Peer({ key: 'lzpcib9zhfv9rudi', debug: 3});
+      peer.on('open', function(){
+        $('#my-id').text(peer.id);
+      });
+      peer.on('call', function(call){
+        call.answer(window.localStream);
+        step3(call);
+      });
+      peer.on('error', function(err){
+        alert(err.message);
+        step2();
+      });
+      $(function(){
+        $('#make-call').click(function(){
+          var call = peer.call($('#callto-id').val(), window.localStream);
+          step3(call);
+        });
+        $('#end-call').click(function(){
+          window.existingCall.close();
+          step2();
+        });
+        $('#step1-retry').click(function(){
+          $('#step1-error').hide();
+          step1();
+        });
+        step1();
+      });
+      function step1 () {
+        navigator.getUserMedia({audio: true, video: true}, function(stream){
+          $('#my-video').prop('src', URL.createObjectURL(stream));
+          window.localStream = stream;
+          step2();
+        }, function(){ $('#step1-error').show(); });
+      }
+      function step2 () {
+        $('#step1, #step3').hide();
+        $('#step2').show();
+      }
+      function step3 (call) {
+        if (window.existingCall) {
+          window.existingCall.close();
+        }
+        call.on('stream', function(stream){
+          $('#their-video').prop('src', URL.createObjectURL(stream));
+        });
+        window.existingCall = call;
+        $('#their-id').text(call.peer);
+        call.on('close', step2);
+        $('#step1, #step2').hide();
+        $('#step3').show();
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">WebRTC Proof-of-Concept</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <section class="row">
+        <div class="col-sm-12">
+          <div style="text-align: center" class="jumbotron">
+            <h2>WebRTC Proof-of-Concept</h2>
+            <p>This is a basic web app (150 lines of code) demoing some of the capabilities of the PeerJS library and WebRTC protocol in 3 steps.</p>
+            <p>See the code on the <a href="https://github.com/jhamit/webrtc-poc">GitHub Repo</a>.</p>
+            <p>See supported browsers on <a href="http://peerjs.com/status/">PeerJS's status page</a>(works best on latest Chrome).</p>
+          </div>
+          <div>
+            <div id="step1">
+              <h3>Step 1 - Allow</h3>
+              <p>Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</p>
+              <div id="step1-error">
+                <p>Failed to access the webcam and microphone. Make sure to click allow when asked for permission by the browser.</p>
+                <a href="#" class="btn btn-default" id="step1-retry">Try again</a>
+              </div>
+            </div>
+            <div id="step2" class="row">
+              <div class="col-sm-12">
+                <h3>Step 2 - Call</h3>
+                <form class="form-inline">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Call user id..." id="callto-id" />
+                    <a href="#" class="btn btn-success" id="make-call">Call</a>
+                  </div>
+                </form>
+              </div>
+              <div class="col-sm-12">
+                <h3>... Or have someone call you</h3>
+                <p>Your id: <span id="my-id">...</span></p>
+                <p>Share this id with others so they can call you.</p>
+              </div>
+            </div>
+            <div id="step3">
+              <h3>Step 3 - Chat</h3>
+              <p>Currently in call with <span id="their-id">...</span></p>
+              <p><a href="#" class="btn btn-danger" id="end-call">End call</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="row">
+        <div class="col-sm-12 col-md-6">
+          <h3>Your Video</h3>
+          <div class="embed-responsive embed-responsive-16by9 thumbnail">
+            <video id="my-video" class="embed-responsive-item" muted="true" autoplay></video>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <h3>Their Video</h3>
+          <div class="embed-responsive embed-responsive-16by9 thumbnail">
+            <video id="their-video" class="embed-responsive-item" autoplay></video>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
